@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../servicios/login.service';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoginParams } from '../interfaces/usuario.interface';
 
 @Component({
   selector: 'app-login',
@@ -9,19 +11,55 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService, 
-    private router: Router) { }
+  generalFormGroup!: FormGroup;
+  roles!: string;
 
-  ngOnInit(): void {
-    this.loginService.login('bcuser1', 'admin').toPromise().then(token => {
+  constructor(private loginService: LoginService, 
+    private router: Router) { 
+      this.generalFormGroup =  new FormGroup({
+        user: new FormControl(null, Validators.required),
+        password: new FormControl(null, Validators.required),
+    })
+  }
+
+  ngOnInit(): void {}
+
+  login(){
+    let user = this.generalFormGroup.get("user")?.value
+    let pass = this.generalFormGroup.get("password")?.value
+//'bcuser1', 'admin'
+    console.log("QUE TRAE: ", user, pass);
+    
+    this.loginService.login(user, pass).subscribe(token => {
         console.log(token);
-        this.router.navigate(['/home']);
+
+        const param: LoginParams = {
+          token: token,
+          username: user
+        }
+        console.log("parametros", param);
+        
+        this.loginService.getRolesAgr(param).subscribe(res =>{
+          console.log("que roles tiene",res);
+          this.roles = res;  
+          this.router.navigate(['/agricultor', token, user]);
+        })
+    
+        if(this.roles){
+          this.loginService.getRolesBc(param).subscribe(res =>{
+            console.log("que roles tiene",res);
+            this.roles = res; 
+            this.router.navigate(['/cafetito', token, user]);     
+          })
+        }else{
+          this.router.navigate(['/login']);
+        } 
       },
       error => {
         console.log('error');
       }
       
-    );
+    );    
   }
 
 }

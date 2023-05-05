@@ -1,0 +1,27 @@
+<mat-card>
+    <mat-action-list>
+        <div mat-subheader>
+            Menu
+        </div>
+        <button mat-list-item>
+            <mat-icon mat-list-icon>home</mat-icon>
+            Inicio
+        </button>
+        <button mat-list-item (click)="redireccion()">
+            <mat-icon mat-list-icon>account_circle</mat-icon>
+            Perfil
+        </button>
+        <button mat-list-item (click)="redireccion1()">
+            <mat-icon mat-list-icon>local_shipping</mat-icon>
+            Agregar Vehículos
+        </button>
+        <button mat-list-item (click)="redireccion2()">
+            <mat-icon mat-list-icon>airline_seat_recline_normal</mat-icon>
+            Agregar Transportistas
+        </button>
+        <button mat-list-item (click)="redireccion3()">
+            <mat-icon mat-list-icon>list_alt</mat-icon>
+            Agregar Cuentas
+        </button>
+    </mat-action-list>
+</mat-card>
