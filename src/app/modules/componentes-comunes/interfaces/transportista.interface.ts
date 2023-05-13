@@ -5,8 +5,8 @@
         nombreTransportista: string;
         telefonoTransportista: string;
         emailTransportista: string;
-        usuarioCreacion: string;
-        fechaCreacion: Date;
+        usuarioCreacion?: string;
+        fechaCreacion?: Date;
     }
 
     export interface TransportistaDto{
@@ -15,4 +15,5 @@
         nombre: string;
         telefono: string;
         email: string;
+        estado?: number;
     }

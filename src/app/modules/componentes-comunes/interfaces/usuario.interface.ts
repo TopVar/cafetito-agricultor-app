@@ -11,3 +11,12 @@
         token: string;
         username: string;
     }
+
+
+    export interface AutenticationInterface {
+        token: string;
+        username: string;
+        roles: string;
+        nombre: string;
+        correo: string;
+    }

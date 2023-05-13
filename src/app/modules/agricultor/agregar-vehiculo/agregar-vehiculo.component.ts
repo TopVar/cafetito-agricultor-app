@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { VehiculoDto, VehiculoInterface } from '../../componentes-comunes/interfaces/vehiculo.interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
 import { VehiculoService } from '../../componentes-comunes/servicios/vehiculo.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-agregar-vehiculo',
@@ -12,6 +13,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./agregar-vehiculo.component.css']
 })
 export class AgregarVehiculoComponent implements OnInit {
+
+  @ViewChild('MatPaginator2') set matPaginator2(mp2: MatPaginator) {
+    this.dataSource.paginator = mp2;
+  }
 
   displayedColumns: string[] = ['placa', 'marca', 'estado', 'tipo', 'modelo', 'color', 'peso', 'acciones'];
   dataSource = new MatTableDataSource<VehiculoInterface>();
@@ -105,7 +110,7 @@ export class AgregarVehiculoComponent implements OnInit {
 
   save(){
 
-    const transportista: VehiculoDto = {
+    const vehiculo: VehiculoDto = {
       placa: this.generalFormGroup.get('placa')?.value,
         marca: this.generalFormGroup.get('marca')?.value,
         modelo:  this.generalFormGroup.get('modelo')?.value,
@@ -113,7 +118,10 @@ export class AgregarVehiculoComponent implements OnInit {
         tipo: this.generalFormGroup.get('tipo')?.value,
         peso: this.generalFormGroup.get('peso')?.value,
   }
-  this.vehiculoService.registrar(transportista).subscribe(res =>{
+
+  console.log("Parametros:", vehiculo);
+  
+  this.vehiculoService.registrar(vehiculo).subscribe(res =>{
     if(res){
       Swal.fire("Creación exitosa", 'Se agrego correctamente el vehiculo','success');
         this.cancelar();

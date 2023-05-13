@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AutenticationInterface } from '../../componentes-comunes/interfaces/usuario.interface';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,44 +9,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
 
-  token!: string;
+  
   user!: string;
   roles!: string;
 
-  constructor(private router: Router,
-    private route: ActivatedRoute) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const token = params['token'];
-      const user = params['user'];
-      this.token = token;
-      this.user = user;
-      console.log("EN EL SIDEBAR ", this.token, this.user); // Muestra el valor del parámetro 'token' en la consola
-    });
-  }
+     const authDataString = sessionStorage.getItem('authData');
+      const authData: AutenticationInterface = JSON.parse(authDataString!);
+      this.roles = authData.roles;
+      console.log("roles", this.roles);
+      
+    }
 
-  redireccion(){
-    this.router.navigate(['agricultor/',this.token,this.user,'profile'])
-  }
-
-  redireccion1(){
-    this.router.navigate(['agricultor/vehiculos'])
-  }
-  redireccion2(){
-    this.router.navigate([`agricultor/transportistas`])
-  }
-  redireccion3(){
-    this.router.navigate([`agricultor/cuentas`])
-  }
-  /* redireccion4(){
-    this.router.navigate(['/agricultor/'+this.token +'/'+ this.user+'/profile'])
-  }
-  redireccion5(){
-    this.router.navigate(['/agricultor/'+this.token +'/'+ this.user+'/profile'])
-  }
-  redireccion6(){
-    this.router.navigate(['/agricultor/'+this.token +'/'+ this.user+'/profile'])
-  } */
 
 }

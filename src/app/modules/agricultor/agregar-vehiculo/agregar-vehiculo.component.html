@@ -82,9 +82,9 @@
                       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
                     <div>
-                        <mat-paginator #MatPaginator2="matPaginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-                          aria-label="Select page of periodic elements">
-                        </mat-paginator>
+                      <mat-paginator #MatPaginator2="matPaginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                      aria-label="Select page of periodic elements">
+                    </mat-paginator>
                     </div>
                   </div>
             </div>
@@ -93,13 +93,13 @@
                     <div class="row">
                         <mat-form-field class="col-sm-6">
                             <mat-label>
-                              Licencia
+                              Placa
                             </mat-label>
                             <input matInput formControlName="placa">
                         </mat-form-field>
                         <mat-form-field class="col-sm-6">
                             <mat-label>
-                              Nombre Transportista
+                              Marca
                             </mat-label>
                             <input matInput formControlName="marca">
                         </mat-form-field>
@@ -111,27 +111,27 @@
                         </mat-form-field>
                         <mat-form-field class="col-sm-6">
                             <mat-label>
-                              Tipo licencia
+                              Tipo Vehiculo
                             </mat-label>
                             <input matInput formControlName="tipo">
                         </mat-form-field>
                         <mat-form-field class="col-sm-6">
                             <mat-label>
-                              Teléfono
+                              Modelo
                             </mat-label>
-                            <input matInput formControlName="modelo">
+                            <input matInput formControlName="modelo" type="number">
                         </mat-form-field>
                         <mat-form-field class="col-sm-6">
                             <mat-label>
-                              Correo Electrónico
+                              Color
                             </mat-label>
                             <input matInput formControlName="color">
                         </mat-form-field>
                         <mat-form-field class="col-sm-6">
                             <mat-label>
-                              Correo Electrónico
+                              Peso
                             </mat-label>
-                            <input matInput formControlName="peso">
+                            <input matInput formControlName="peso" type="number">
                         </mat-form-field>
                     </div>
                 </form>

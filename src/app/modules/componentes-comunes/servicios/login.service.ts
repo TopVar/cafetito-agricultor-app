@@ -2,25 +2,33 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
 import { Observable, map} from 'rxjs';
-import { LoginParams, UsuarioInterface } from '../interfaces/usuario.interface';
-import { GeneralService } from './general.service';
+import { AutenticationInterface, LoginParams, UsuarioInterface } from '../interfaces/usuario.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private http: HttpClient, private servicioGeneral: GeneralService) { }
+  token!: string;
 
-  login(username: string, password: string): Observable<string> {
+  constructor(private http: HttpClient) { }
+
+  /* public tokenExist(){
+    const authDataString = sessionStorage.getItem('authData');
+    const authData: AutenticationInterface = JSON.parse(authDataString!);
+    this.token = authData.token;
+    return authData;
+  } */
+
+  login(username: string, password: string): Observable<AutenticationInterface> {
     const encodedCredentials = btoa(`${username}:${password}`);
     const headers = new HttpHeaders({
       'Authorization': `Basic ${encodedCredentials}`
     });
-    return this.http.get(environment.BASE_WS_LOCAL + '/login', { headers, responseType: 'text' }).pipe(
+    return this.http.get(environment.BASE_WS_LOCAL + '/login', { headers}).pipe(
       map((response: any) => {
         // guarda el token en localStorage
-        localStorage.setItem('token', response);
+        //localStorage.setItem('token', response);
         return response;
       })
     );
@@ -34,9 +42,10 @@ export class LoginService {
     return this.http.get(environment.BASE_WS_LOCAL + '/isWebServiceActive', { headers });
   }
 
-  public registrarBc(user: UsuarioInterface):Observable<Boolean>{
-    return this.servicioGeneral.postData<Boolean, UsuarioInterface>(`${environment.BASE_WS_LOCAL}/cafetito/usuarios/crearUsuario`, user);
-  }
+  /* public registrarBc(user: UsuarioInterface):Observable<Boolean>{
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    return this.http.post(environment.BASE_WS_LOCAL + `/cafetito/usuarios/crearUsuario`, user, {headers});
+  } */
 
   public getRolesAgr(param: LoginParams): Observable<any>{
     const token = param.token;

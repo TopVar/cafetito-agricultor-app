@@ -10,6 +10,14 @@ import { AgregarVehiculoComponent } from './modules/agricultor/agregar-vehiculo/
 import { AgregarTranspotistaComponent } from './modules/agricultor/agregar-transpotista/agregar-transpotista.component';
 import { AgregarCuentaComponent } from './modules/agricultor/agregar-cuenta/agregar-cuenta.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { EnviarParcialidadesComponent } from './modules/agricultor/enviar-parcialidades/enviar-parcialidades.component';
+import { BandejaCuentasComponent } from './modules/cafetito/bandeja-cuentas/bandeja-cuentas.component';
+import { AutorizarTransportistasComponent } from './modules/cafetito/autorizar-transportistas/autorizar-transportistas.component';
+import { AutorizarVehiculosComponent } from './modules/cafetito/autorizar-vehiculos/autorizar-vehiculos.component';
+import { PesajeParcialidadComponent } from './modules/cafetito/peso-cabal/pesaje-parcialidad/pesaje-parcialidad.component';
+import { PesajeVehiculoComponent } from './modules/cafetito/peso-cabal/pesaje-vehiculo/pesaje-vehiculo.component';
+import { CuentasCerradasComponent } from './modules/cafetito/cuentas-cerradas/cuentas-cerradas.component';
+import { IngresoParcialidadComponent } from './modules/agricultor/ingreso-parcialidad/ingreso-parcialidad.component';
 
 const routes: Routes = [
   { 
@@ -18,7 +26,7 @@ const routes: Routes = [
     pathMatch: 'full' 
   },
   { 
-    path: 'home/:token/:user', 
+    path: 'home', 
     component: HomeComponent,
     pathMatch: 'full'
   },
@@ -33,10 +41,10 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   { 
-    path: 'agricultor/:token/:user', 
+    path: 'agricultor', 
     component: DashboardComponent,
-    pathMatch: 'full',
-    /* children: [
+    pathMatch: 'prefix',
+    children: [
       {
         path: 'profile',
         component: ProfileComponent
@@ -50,32 +58,54 @@ const routes: Routes = [
         component: AgregarTranspotistaComponent
       },
       {
-        path: 'cuentas',
+        path: 'ventas',
         component: AgregarCuentaComponent
       },
+      {
+        path: 'cuentas',
+        component: EnviarParcialidadesComponent
+      },
 
-    ] */
+    ]
   },
   { 
-    path: 'cafetito/:token/:user', 
+    path: 'cafetito', 
     component: DashboardBcComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'agricultor/vehiculos',
-    component: AgregarVehiculoComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'agricultor/transportistas',
-    component: AgregarTranspotistaComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'agricultor/cuentas',
-    component: AgregarCuentaComponent,
-    pathMatch: 'full'
-  },
+    pathMatch: 'prefix',
+    children: [
+      {
+        path: 'cuentas',
+        component: BandejaCuentasComponent
+      },
+      {
+        path: 'autoriza/vehiculo',
+        component: AutorizarVehiculosComponent
+      },
+      {
+        path: 'autoriza/transportista',
+        component: AutorizarTransportistasComponent
+      },
+      {
+        path: 'pesaje/parcialidad',
+        component: PesajeParcialidadComponent
+      },
+      {
+        path: 'ingreso',
+        component: IngresoParcialidadComponent
+      },
+      {
+        path: 'cuentas/cerradas',
+        component: CuentasCerradasComponent
+      },
+      {
+        path: 'pesaje/vehiculo',
+        component: PesajeVehiculoComponent
+      },
+
+      
+
+    ]
+  }
 ];
 
 @NgModule({

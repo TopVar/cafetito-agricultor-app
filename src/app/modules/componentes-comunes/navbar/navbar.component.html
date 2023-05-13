@@ -4,7 +4,7 @@
     </a>
     <span>Bienvenido</span>
     <span class="example-spacer"></span>
-    <a *ngIf="!loginService.isLoggedIn()" [routerLink]="'/login'" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <!-- <a *ngIf="!loginService.isLoggedIn()" [routerLink]="'/login'" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
         Iniciar Sesión
     </a>
     <a *ngIf="loginService.isLoggedIn()" [routerLink]="'/login'" mat-icon-button class="example-icon favorite-icon" 
@@ -13,7 +13,7 @@
     </a>
     <a *ngIf="!loginService.isLoggedIn()" [routerLink]="'/signup'" mat-icon-button class="example-icon favorite-icon mr20 ml70" aria-label="Example icon-button with heart icon">
         Registrarse
-    </a>
+    </a> -->
     <button *ngIf="loginService.isLoggedIn()" mat-icon-button class="example-icon favorite-icon" 
     aria-label="Example icon-button with heart icon" mat-button style="margin-right: 10px;">
     Usuario

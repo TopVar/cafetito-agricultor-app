@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { TransportistaDto, TransportistaInterface } from '../../componentes-comunes/interfaces/transportista.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
 import { TransportistaService } from '../../componentes-comunes/servicios/transportista.service';
+import { AutenticationInterface } from '../../componentes-comunes/interfaces/usuario.interface';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-agregar-transpotista',
@@ -12,6 +14,10 @@ import { TransportistaService } from '../../componentes-comunes/servicios/transp
   styleUrls: ['./agregar-transpotista.component.css']
 })
 export class AgregarTranspotistaComponent implements OnInit {
+
+  @ViewChild('MatPaginator2') set matPaginator2(mp2: MatPaginator) {
+    this.dataSource.paginator = mp2;
+  }
 
   displayedColumns: string[] = ['licencia', 'nombre', 'estado', 'tipo', 'tel', 'correo', 'acciones'];
   dataSource = new MatTableDataSource<TransportistaInterface>();
@@ -27,6 +33,7 @@ export class AgregarTranspotistaComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    
     this.transportistaService.getAll().subscribe(res =>{
       console.log("QUE TRAE",res);
       
@@ -34,6 +41,8 @@ export class AgregarTranspotistaComponent implements OnInit {
     })
 
     this.initForms();
+    this.inicio= true;
+    this.viewing = true;
   }
 
   applyFilter(event: Event){
@@ -81,7 +90,7 @@ export class AgregarTranspotistaComponent implements OnInit {
     this.transportistaService.editar(transportista).subscribe(res =>{
       if(res){
         Swal.fire("Cambio exitoso", 'Se modificó correctamente el trasnportista','success');
-        this.cancelar();
+        this.ngOnInit();
       }else{
         this.snack.open('No se pudo guardar los cambios', 'Aceptar',{
           duration: 3000,
@@ -110,7 +119,7 @@ export class AgregarTranspotistaComponent implements OnInit {
   this.transportistaService.registrar(transportista).subscribe(res =>{
     if(res){
       Swal.fire("Creación exitosa", 'Se agrego correctamente al trasnportista','success');
-        this.cancelar();
+        this.ngOnInit()
     }else{
       this.snack.open('No se pudo agregar al transportista', 'Aceptar',{
         duration: 3000,
